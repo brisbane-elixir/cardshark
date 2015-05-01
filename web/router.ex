@@ -13,15 +13,11 @@ defmodule CardShark.Router do
   end
 
   scope "/", CardShark do
-    pipe_through :browser # Use the default browser stack
-
+    pipe_through :browser
     get "/", PageController, :index
-
-    resources "/users", UserController
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", CardShark do
-  #   pipe_through :api
-  # end
+  scope "/api", CardShark do
+    resources "/users", UserController
+  end
 end

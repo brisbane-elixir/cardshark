@@ -8,12 +8,7 @@ defmodule CardShark.UserController do
 
   def index(conn, _params) do
     users = Repo.all(User)
-    render(conn, "index.html", users: users)
-  end
-
-  def new(conn, _params) do
-    changeset = User.changeset(%User{})
-    render(conn, "new.html", changeset: changeset)
+    render conn, "users.json", users: users
   end
 
   def create(conn, %{"user" => user_params}) do
@@ -21,24 +16,14 @@ defmodule CardShark.UserController do
 
     if changeset.valid? do
       Repo.insert(changeset)
-
-      conn
-      |> put_flash(:info, "User created successfully.")
-      |> redirect(to: user_path(conn, :index))
-    else
-      render(conn, "new.html", changeset: changeset)
     end
+
+    render conn, "changeset.json", changeset: changeset
   end
 
   def show(conn, %{"id" => id}) do
     user = Repo.get(User, id)
-    render(conn, "show.html", user: user)
-  end
-
-  def edit(conn, %{"id" => id}) do
-    user = Repo.get(User, id)
-    changeset = User.changeset(user)
-    render(conn, "edit.html", user: user, changeset: changeset)
+    render conn, "user.json", user: user
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do
@@ -47,21 +32,14 @@ defmodule CardShark.UserController do
 
     if changeset.valid? do
       Repo.update(changeset)
-
-      conn
-      |> put_flash(:info, "User updated successfully.")
-      |> redirect(to: user_path(conn, :index))
-    else
-      render(conn, "edit.html", user: user, changeset: changeset)
     end
+
+    render conn, "changeset.json", changeset: changeset
   end
 
   def delete(conn, %{"id" => id}) do
     user = Repo.get(User, id)
     Repo.delete(user)
-
-    conn
-    |> put_flash(:info, "User deleted successfully.")
-    |> redirect(to: user_path(conn, :index))
+    render conn, "user.json", user: user
   end
 end
