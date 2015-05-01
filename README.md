@@ -55,6 +55,17 @@ Map.get user, :email
 Map.get user, :inserted_at
 ```
 
+## Run in docker container
+
+Install docker and docker compose.
+
+```sh
+fig build
+fig up
+fig run api mix ecto.create
+fig run api mix ecto.migrate
+```
+
 ## Deploy to heroku
 
 ```sh
