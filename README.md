@@ -36,7 +36,7 @@ iex -S mix phoenix.server
 
 You can execute database actions:
 
-```
+```elixir
 alias CardShark.Repo
 alias CardShark.User
 
