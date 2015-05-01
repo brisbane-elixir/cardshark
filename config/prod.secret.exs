@@ -9,7 +9,8 @@ config :card_shark, CardShark.Endpoint,
 # Configure your database
 config :card_shark, CardShark.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "card_shark_prod",
+  username: System.get_env("DATABASE_USERNAME"),
+  password: System.get_env("DATABASE_PASSWORD"),
+  database: System.get_env("DATABASE_DATABASE"),
+  hostname: System.get_env("DATABASE_HOSTNAME"),
   size: 20 # The amount of database connections in the pool
