@@ -1,8 +1,18 @@
-# CardShark
+# Card Shark
 
-To start your new Phoenix application:
+## Run locally
 
-1. Install dependencies with `mix deps.get`
-2. Start Phoenix endpoint with `mix phoenix.server`
+```sh
+mix deps.get
+mix phoenix.server
+```
 
-Now you can visit `localhost:4000` from your browser.
+Now you can visit [card_shark](localhost:4000).
+
+## Deploy to heroku
+
+```sh
+heroku apps:create
+heroku buildpack:set https://github.com/HashNuke/heroku-buildpack-elixir
+git push heroku master
+```
