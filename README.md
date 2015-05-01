@@ -2,12 +2,58 @@
 
 ## Run locally
 
+Install dependencies
+
 ```sh
 mix deps.get
+```
+
+Create database
+
+```sh
+mix ecto.create
+```
+
+Run database migrations
+
+```sh
+mix ecto.migrate
+```
+
+Start server in foreground
+
+```sh
 mix phoenix.server
 ```
 
 Now you can visit [card_shark](http://localhost:4000).
+
+## Interactive console
+
+```sh
+iex -S mix phoenix.server
+```
+
+You can execute database actions:
+
+```
+alias CardShark.Repo
+alias CardShark.User
+
+users = Repo.all User
+
+changeset = User.changeset(%User{}, %{:email => "me@mail.com", :password => "1"})
+changeset.valid?
+user = Repo.insert changeset
+
+changeset = User.changeset(user, %{:password => "2"})
+changeset.valid?
+user = Repo.update changeset
+
+user = Repo.get User, 1
+Map.get user, :email
+Map.get user, :inserted_at
+```
 
 ## Deploy to heroku
 

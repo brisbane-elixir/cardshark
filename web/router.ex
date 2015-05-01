@@ -18,6 +18,7 @@ defmodule CardShark.Router do
   end
 
   scope "/api", CardShark do
+    pipe_through :api
     resources "/users", UserController
   end
 end
