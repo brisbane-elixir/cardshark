@@ -1,0 +1,19 @@
+db:
+  image: postgres:latest
+  ports:
+    - "5432:5432"
+api:
+  build: .
+  volumes:
+    - .:/var/www/app
+  ports:
+    - "2011:2011"
+  links:
+    - db
+  environment:
+    DATABASE_USERNAME: 'postgres'
+    DATABASE_PASSWORD: ''
+    DATABASE_HOSTNAME: 'db'
+    DATABASE_DATABASE: 'card_shark'
+    PORT: 2011
+    MIX_ENV: prod
