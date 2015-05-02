@@ -1,12 +1,12 @@
 import {Socket} from "phoenix"
 
+Notification.requestPermission()
+
 let socket = new Socket("/ws")
 socket.connect()
 socket.join("stream", {}).receive("ok", chan => {
-  console.log('joined', chan)
-
   chan.on("userevent", data => {
-    console.log(data)
+    new Notification(data.event, {"body": JSON.stringify(data.user) })
   });
 })
 
