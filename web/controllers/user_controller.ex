@@ -26,9 +26,11 @@ defmodule CardShark.UserController do
     changeset = User.changeset(%User{}, user_params)
 
     if changeset.valid? do
+      user = Repo.insert(changeset)
+      CardShark.Endpoint.broadcast! "stream", "userevent", %{event: "created", user: user}
       conn
       |> put_status(:created)
-      |> json(Repo.insert(changeset))
+      |> json(user)
     else
       conn
       |> put_status(:unprocessable_entity)
@@ -43,7 +45,9 @@ defmodule CardShark.UserController do
       changeset = User.changeset(user, user_params)
 
       if changeset.valid? do
-        json conn, Repo.update(changeset)
+        updated_user = Repo.update(changeset)
+        CardShark.Endpoint.broadcast! "stream", "userevent", %{event: "updated", user: updated_user}
+        json conn, updated_user
       else
         conn
         |> put_status(:unprocessable_entity)

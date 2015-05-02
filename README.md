@@ -53,6 +53,9 @@ user = Repo.update changeset
 user = Repo.get User, 1
 Map.get user, :email
 Map.get user, :inserted_at
+
+# broadcast a message to all current websocket clients
+CardShark.Endpoint.broadcast! "stream", "userevent", %{username: "mark", content: "content"}
 ```
 
 ## Run in docker container
@@ -121,7 +124,7 @@ JSON
 ### Update user
 
 ```sh
-curl $CARD_SHARK_URL/api/users/1 \
+curl $CARD_SHARK_URL/api/users/3 \
   -H 'Content-Type: application/json' \
   -X PUT \
   -d @/dev/stdin <<JSON
