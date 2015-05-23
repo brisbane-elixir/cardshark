@@ -6,47 +6,67 @@ defmodule CardShark.CardController do
   plug :scrub_params, "card" when action in [:create, :update]
   plug :action
 
-  def index(conn, _params) do
-    cards = Repo.all(Card)
-    render(conn, "index.json", cards: cards)
-  end
-
   def create(conn, %{"card" => card_params}) do
     changeset = Card.changeset(%Card{}, card_params)
 
     if changeset.valid? do
       card = Repo.insert(changeset)
-      render(conn, "show.json", card: card)
+      CardShark.Endpoint.broadcast! "stream", "cardevent", %{event: "created", card: card}
+      conn
+      |> put_status(:created)
+      |> json(card)
     else
       conn
       |> put_status(:unprocessable_entity)
-      |> render(CardShark.ChangesetView, "error.json", changeset: changeset)
+      |> json(changeset)
     end
+  end
+
+  def index(conn, _params) do
+    json conn, Repo.all(Card)
   end
 
   def show(conn, %{"id" => id}) do
     card = Repo.get(Card, id)
-    render conn, "show.json", card: card
+    if card do
+      json conn, card
+    else
+      conn
+      |> put_status(:not_found)
+      |> json %{}
+    end
   end
 
   def update(conn, %{"id" => id, "card" => card_params}) do
     card = Repo.get(Card, id)
-    changeset = Card.changeset(card, card_params)
 
-    if changeset.valid? do
-      card = Repo.update(changeset)
-      render(conn, "show.json", card: card)
+    if card do
+      changeset = Card.changeset(card, card_params)
+
+      if changeset.valid? do
+        updated_card = Repo.update(changeset)
+        CardShark.Endpoint.broadcast! "stream", "cardevent", %{event: "updated", card: updated_card}
+        json conn, updated_card
+      else
+        conn
+        |> put_status(:unprocessable_entity)
+        |> json(changeset)
+      end
     else
       conn
-      |> put_status(:unprocessable_entity)
-      |> render(CardShark.ChangesetView, "error.json", changeset: changeset)
+      |> put_status(:not_found)
+      |> json %{}
     end
   end
 
   def delete(conn, %{"id" => id}) do
     card = Repo.get(Card, id)
-
-    card = Repo.delete(card)
-    render(conn, "show.json", card: card)
+    if card do
+      json conn, Repo.delete(card)
+    else
+      conn
+      |> put_status(:not_found)
+      |> json %{}
+    end
   end
 end

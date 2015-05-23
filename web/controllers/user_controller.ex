@@ -6,22 +6,6 @@ defmodule CardShark.UserController do
   plug :scrub_params, "user" when action in [:create, :update]
   plug :action
 
-  def index(conn, _params) do
-    users = Repo.all(User)
-    json conn, users
-  end
-
-  def show(conn, %{"id" => id}) do
-    user = Repo.get(User, id)
-    if user do
-      json conn, user
-    else
-      conn
-      |> put_status(:not_found)
-      |> json %{}
-    end
-  end
-
   def create(conn, %{"user" => user_params}) do
     changeset = User.changeset(%User{}, user_params)
 
@@ -35,6 +19,21 @@ defmodule CardShark.UserController do
       conn
       |> put_status(:unprocessable_entity)
       |> json(changeset)
+    end
+  end
+
+  def index(conn, _params) do
+    json conn, Repo.all(User)
+  end
+
+  def show(conn, %{"id" => id}) do
+    user = Repo.get(User, id)
+    if user do
+      json conn, user
+    else
+      conn
+      |> put_status(:not_found)
+      |> json %{}
     end
   end
 

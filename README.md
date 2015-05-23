@@ -91,19 +91,70 @@ Now you can visit `http//$NAME.herokuapp.com`.
 
 # API
 
+## Cards
+
+The cards model, controller, views were initially created with the following generator:
+
+```sh
+mix phoenix.gen.json Card cards summary:string detail:text estimate:integer assignee:integer
+```
+
+### Create card
+
+```sh
+curl $CARD_SHARK_URL/api/cards \
+  -H 'Content-Type: application/json' \
+  -X POST \
+  -d @/dev/stdin <<JSON
+{
+  "card": {
+    "summary": "manage cards",
+    "detail": "crud operations for managing cards",
+    "estimate": "1",
+    "assignee": "1"
+  }
+}
+JSON
+```
+
+### List cards
+
+```sh
+curl $CARD_SHARK_URL/api/cards
+
+http $CARD_SHARK_URL/api/cards
+```
+
+### Show card
+
+```sh
+curl $CARD_SHARK_URL/api/cards/1
+
+http $CARD_SHARK_URL/api/cards/1
+```
+
+### Update card
+
+```sh
+curl $CARD_SHARK_URL/api/cards/1 \
+  -H 'Content-Type: application/json' \
+  -X PUT \
+  -d @/dev/stdin <<JSON
+{
+  "card": {
+    "summary": "create, read, update, and delete cards"
+  }
+}
+JSON
+```
+
+### Delete card
+
+```sh
+curl $CARD_SHARK_URL/api/cards/1 -X DELETE
+```
+
 ## Users
-
-### List users
-
-```sh
-curl $CARD_SHARK_URL/api/users
-```
-
-### Show user
-
-```sh
-curl $CARD_SHARK_URL/api/users/1
-```
 
 ### Create user
 
@@ -119,6 +170,18 @@ curl $CARD_SHARK_URL/api/users \
   }
 }
 JSON
+```
+
+### List users
+
+```sh
+curl $CARD_SHARK_URL/api/users
+```
+
+### Show user
+
+```sh
+curl $CARD_SHARK_URL/api/users/1
 ```
 
 ### Update user
