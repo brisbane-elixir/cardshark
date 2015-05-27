@@ -12,8 +12,4 @@ config :logger, level: :warn
 # Configure your database
 config :card_shark, CardShark.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "card_shark_test",
-  size: 1,
-  max_overflow: 0
+  database: "card_shark_test"
