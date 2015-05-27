@@ -73,3 +73,31 @@ thing = Repo.update changeset
 Repo.delete thing
 
 Repo.delete_all Thing
+
+alias CardShark.Repo
+alias CardShark.Card
+alias CardShark.Project
+import Ecto.Query
+
+changeset = Project.changeset(%Project{}, %{name: "card shark"})
+project = Repo.insert changeset
+
+changeset = Card.changeset(
+  %Card{project_id: project.id},
+  %{
+    summary: "create association",
+    detail: "cards should be linked to project",
+    estimate: 3,
+    assignee: 1
+  }
+)
+changeset.valid?
+card = Repo.insert changeset
+
+[project] = Repo.all Project
+
+query = from c in Card,
+      where: c.id == 1,
+     select: c,
+    preload: :project
+[card] = Repo.all query

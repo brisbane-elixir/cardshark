@@ -6,6 +6,7 @@ defmodule CardShark.Card do
     field :detail, :string
     field :estimate, :integer
     field :assignee, :integer
+    belongs_to :project, CardShark.Project
 
     timestamps
   end
