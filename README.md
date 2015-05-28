@@ -54,8 +54,23 @@ user = Repo.get User, 1
 Map.get user, :email
 Map.get user, :inserted_at
 
-# broadcast a message to all current websocket clients
-CardShark.Endpoint.broadcast! "stream", "userevent", %{username: "mark", content: "content"}
+CardShark.Endpoint.broadcast! "stream", "userevent", %{
+  event: "created",
+  user: %{
+    username: "mark",
+    content: "content"
+  }
+}
+
+CardShark.Endpoint.broadcast! "stream", "cardevent", %{
+  event: "created",
+  card: %{
+    summary: "manage cards",
+    detail: "crud operations for managing cards",
+    estimate: "1",
+    assignee: "mark"
+  }
+}
 ```
 
 ## Run in docker container

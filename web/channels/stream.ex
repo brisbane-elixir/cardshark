@@ -3,7 +3,6 @@ defmodule CardShark.StreamChannel do
   require Logger
 
   def join(topic, message, socket) do
-    Logger.debug "JOIN: #{socket.channel}:#{topic}:#{inspect message}"
-    {:ok, socket}
+    {:ok, %{}, socket}
   end
 end

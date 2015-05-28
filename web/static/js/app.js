@@ -1,16 +1,22 @@
 import {Socket} from "phoenix"
 
-Notification.requestPermission()
+Notification.requestPermission();
 
-let socket = new Socket("/ws")
-socket.connect()
-socket.join("stream", {}).receive("ok", chan => {
-  chan.on("userevent", data => {
-    new Notification(data.event, {"body": JSON.stringify(data.user) })
-  });
+let socket = new Phoenix.Socket("/ws");
+let chan = socket.chan("stream", {});
+
+socket.connect();
+
+chan.join().receive("ok", ({messages}) => {
+  console.log(messages);
 })
 
-let App = {
-}
+chan.on("userevent", data => {
+  console.log(data);
+  // new Notification(data.event, {"body": JSON.stringify(data.user) });
+});
 
-export default App
+chan.on("cardevent", data => {
+  console.log(data);
+  // new Notification(data.event, {"body": JSON.stringify(data.user) });
+});
