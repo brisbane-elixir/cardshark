@@ -13,10 +13,10 @@ chan.join().receive("ok", ({messages}) => {
 
 chan.on("userevent", data => {
   console.log(data);
-  // new Notification(data.event, {"body": JSON.stringify(data.user) });
+  new Notification(data.event, {"body": JSON.stringify(data.user) });
 });
 
 chan.on("cardevent", data => {
   console.log(data);
-  // new Notification(data.event, {"body": JSON.stringify(data.user) });
+  new Notification(data.event, {"body": JSON.stringify(data.card) });
 });
