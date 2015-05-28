@@ -45,7 +45,7 @@ defmodule CardShark.CardController do
 
       if changeset.valid? do
         updated_card = Repo.update(changeset)
-        CardShark.Endpoint.broadcast! "stream", "cardevent", %{event: "updated", card: changeset}
+        CardShark.Endpoint.broadcast! "stream", "cardevent", %{event: "updated", card: changeset.changes}
         json conn, updated_card
       else
         conn

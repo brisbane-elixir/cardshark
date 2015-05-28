@@ -95,6 +95,16 @@ changeset = Card.changeset(
 changeset.valid?
 card = Repo.insert changeset
 
+card = Repo.get Card, card.id
+changeset = Card.changeset(
+  card,
+  %{
+    summary: "really create association"
+  }
+)
+changeset.valid?
+card = Repo.update changeset
+
 [project|_] = Repo.all Project
 
 query = from c in Card,

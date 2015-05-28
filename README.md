@@ -202,7 +202,7 @@ curl $CARD_SHARK_URL/api/users/1
 ### Update user
 
 ```sh
-curl $CARD_SHARK_URL/api/users/3 \
+curl $CARD_SHARK_URL/api/users/1 \
   -H 'Content-Type: application/json' \
   -X PUT \
   -d @/dev/stdin <<JSON
