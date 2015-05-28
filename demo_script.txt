@@ -108,3 +108,11 @@ query = assoc(card, :project)
 [project] = Repo.all query
 query = assoc(project, :cards)
 cards = Repo.all query
+
+# elixir conf 2015
+https://www.youtube.com/playlist?list=PLWbHc_FXPo2jBXpr1IjyUgJ7hNS1eTf7H
+
+http://www.phoenixframework.org/
+https://github.com/elixir-lang/ecto
+http://learnelixir.com/blog/2014/10/11/ecto-vs-active-record/
+http://phoenix.thefirehoseproject.com/
