@@ -78,6 +78,7 @@ alias CardShark.Repo
 alias CardShark.Card
 alias CardShark.Project
 import Ecto.Query
+import Ecto.Model
 
 changeset = Project.changeset(%Project{}, %{name: "card shark"})
 project = Repo.insert changeset
@@ -94,10 +95,16 @@ changeset = Card.changeset(
 changeset.valid?
 card = Repo.insert changeset
 
-[project] = Repo.all Project
+[project|_] = Repo.all Project
 
 query = from c in Card,
-      where: c.id == 1,
+      where: c.id == ^card.id,
      select: c,
     preload: :project
 [card] = Repo.all query
+
+card = Repo.get Card, card.id
+query = assoc(card, :project)
+[project] = Repo.all query
+query = assoc(project, :cards)
+cards = Repo.all query
