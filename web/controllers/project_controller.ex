@@ -4,7 +4,6 @@ defmodule CardShark.ProjectController do
   alias CardShark.Project
 
   plug :scrub_params, "project" when action in [:create, :update]
-  plug :action
 
   def index(conn, _params) do
     projects = Repo.all(Project)

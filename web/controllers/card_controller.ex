@@ -4,7 +4,6 @@ defmodule CardShark.CardController do
   alias CardShark.Card
 
   plug :scrub_params, "card" when action in [:create, :update]
-  plug :action
 
   def create(conn, %{"card" => card_params}) do
     changeset = Card.changeset(%Card{}, card_params)
