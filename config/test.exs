@@ -12,4 +12,5 @@ config :logger, level: :warn
 # Configure your database
 config :card_shark, CardShark.Repo,
   adapter: Ecto.Adapters.Postgres,
+  pool: Ecto.Adapters.SQL.Sandbox,
   database: "card_shark_test"
