@@ -16,11 +16,17 @@ defmodule CardShark.ProjectControllerTest do
   end
 
   test "shows chosen resource", %{conn: conn} do
-    project = Repo.insert %Project{}
+    project = Repo.insert! %Project{}
     conn = get conn, project_path(conn, :show, project)
     assert json_response(conn, 200)["data"] == %{
       "id" => project.id
     }
+  end
+
+  test "does not show resource and instead throw error when id is nonexistent", %{conn: conn} do
+    assert_raise Ecto.NoResultsError, fn ->
+      get conn, project_path(conn, :show, -1)
+    end
   end
 
   test "creates and renders resource when data is valid", %{conn: conn} do
@@ -35,20 +41,20 @@ defmodule CardShark.ProjectControllerTest do
   end
 
   test "updates and renders chosen resource when data is valid", %{conn: conn} do
-    project = Repo.insert %Project{}
+    project = Repo.insert! %Project{}
     conn = put conn, project_path(conn, :update, project), project: @valid_attrs
     assert json_response(conn, 200)["data"]["id"]
     assert Repo.get_by(Project, @valid_attrs)
   end
 
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
-    project = Repo.insert %Project{}
+    project = Repo.insert! %Project{}
     conn = put conn, project_path(conn, :update, project), project: @invalid_attrs
     assert json_response(conn, 422)["errors"] != %{}
   end
 
   test "deletes chosen resource", %{conn: conn} do
-    project = Repo.insert %Project{}
+    project = Repo.insert! %Project{}
     conn = delete conn, project_path(conn, :delete, project)
     assert json_response(conn, 200)["data"]["id"]
     refute Repo.get(Project, project.id)
