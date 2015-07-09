@@ -12,13 +12,13 @@ defmodule CardShark.ProjectControllerTest do
 
   test "lists all entries on index", %{conn: conn} do
     conn = get conn, project_path(conn, :index)
-    assert json_response(conn, 200)["data"] == []
+    assert json_response(conn, 200)["projects"] == []
   end
 
   test "shows chosen resource", %{conn: conn} do
     project = Repo.insert! %Project{}
     conn = get conn, project_path(conn, :show, project)
-    assert json_response(conn, 200)["data"] == %{
+    assert json_response(conn, 200) == %{
       "id" => project.id
     }
   end
@@ -31,7 +31,7 @@ defmodule CardShark.ProjectControllerTest do
 
   test "creates and renders resource when data is valid", %{conn: conn} do
     conn = post conn, project_path(conn, :create), project: @valid_attrs
-    assert json_response(conn, 200)["data"]["id"]
+    assert json_response(conn, 200)["id"]
     assert Repo.get_by(Project, @valid_attrs)
   end
 
@@ -43,7 +43,7 @@ defmodule CardShark.ProjectControllerTest do
   test "updates and renders chosen resource when data is valid", %{conn: conn} do
     project = Repo.insert! %Project{}
     conn = put conn, project_path(conn, :update, project), project: @valid_attrs
-    assert json_response(conn, 200)["data"]["id"]
+    assert json_response(conn, 200)["id"]
     assert Repo.get_by(Project, @valid_attrs)
   end
 
@@ -56,7 +56,7 @@ defmodule CardShark.ProjectControllerTest do
   test "deletes chosen resource", %{conn: conn} do
     project = Repo.insert! %Project{}
     conn = delete conn, project_path(conn, :delete, project)
-    assert json_response(conn, 200)["data"]["id"]
+    assert json_response(conn, 200)["id"]
     refute Repo.get(Project, project.id)
   end
 end
