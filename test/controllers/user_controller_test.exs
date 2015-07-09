@@ -19,7 +19,8 @@ defmodule CardShark.UserControllerTest do
     user = Repo.insert! %User{}
     conn = get conn, user_path(conn, :show, user)
     assert json_response(conn, 200) == %{
-      "id" => user.id
+      "id" => user.id,
+      "email" => user.email
     }
   end
 

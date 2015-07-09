@@ -10,6 +10,6 @@ defmodule CardShark.ProjectView do
   end
 
   def render("project.json", %{project: project}) do
-    %{id: project.id}
+    %{id: project.id, name: project.name}
   end
 end

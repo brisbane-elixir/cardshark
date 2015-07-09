@@ -19,7 +19,11 @@ defmodule CardShark.CardControllerTest do
     card = Repo.insert! %Card{}
     conn = get conn, card_path(conn, :show, card)
     assert json_response(conn, 200) == %{
-      "id" => card.id
+      "id" => card.id,
+      "summary" => card.summary,
+      "detail" => card.detail,
+      "estimate" => card.estimate,
+      "assignee" => card.assignee
     }
   end
 

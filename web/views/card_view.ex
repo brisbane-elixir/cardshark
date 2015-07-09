@@ -10,6 +10,12 @@ defmodule CardShark.CardView do
   end
 
   def render("card.json", %{card: card}) do
-    %{id: card.id}
+    %{
+      id: card.id,
+      summary: card.summary,
+      detail: card.detail,
+      estimate: card.estimate,
+      assignee: card.assignee
+    }
   end
 end

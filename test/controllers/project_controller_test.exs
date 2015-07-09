@@ -19,7 +19,8 @@ defmodule CardShark.ProjectControllerTest do
     project = Repo.insert! %Project{}
     conn = get conn, project_path(conn, :show, project)
     assert json_response(conn, 200) == %{
-      "id" => project.id
+      "id" => project.id,
+      "name" => project.name
     }
   end
 
