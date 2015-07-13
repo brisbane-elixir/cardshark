@@ -14,7 +14,7 @@ defmodule CardShark.ProjectController do
     changeset = Project.changeset(%Project{}, project_params)
 
     if changeset.valid? do
-      project = Repo.insert(changeset)
+      project = Repo.insert!(changeset)
       render(conn, "show.json", project: project)
     else
       conn
@@ -24,16 +24,16 @@ defmodule CardShark.ProjectController do
   end
 
   def show(conn, %{"id" => id}) do
-    project = Repo.get(Project, id)
+    project = Repo.get!(Project, id)
     render conn, "show.json", project: project
   end
 
   def update(conn, %{"id" => id, "project" => project_params}) do
-    project = Repo.get(Project, id)
+    project = Repo.get!(Project, id)
     changeset = Project.changeset(project, project_params)
 
     if changeset.valid? do
-      project = Repo.update(changeset)
+      project = Repo.update!(changeset)
       render(conn, "show.json", project: project)
     else
       conn
@@ -43,9 +43,9 @@ defmodule CardShark.ProjectController do
   end
 
   def delete(conn, %{"id" => id}) do
-    project = Repo.get(Project, id)
+    project = Repo.get!(Project, id)
 
-    project = Repo.delete(project)
+    project = Repo.delete!(project)
     render(conn, "show.json", project: project)
   end
 end
