@@ -21,6 +21,7 @@ defmodule CardShark.Router do
     pipe_through :api
     resources "/users", UserController
     resources "/cards", CardController
+    resources "/projects", ProjectController
   end
 
   socket "/ws", CardShark do

@@ -4,7 +4,6 @@ defmodule CardShark.UserController do
   alias CardShark.User
 
   plug :scrub_params, "user" when action in [:create, :update]
-  plug :action
 
   def create(conn, %{"user" => user_params}) do
     changeset = User.changeset(%User{}, user_params)
