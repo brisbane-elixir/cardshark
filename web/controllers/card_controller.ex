@@ -2,6 +2,7 @@ defmodule CardShark.CardController do
   use CardShark.Web, :controller
 
   alias CardShark.Card
+  alias CardShark.Event
 
   plug :scrub_params, "card" when action in [:create, :update]
 
@@ -15,6 +16,8 @@ defmodule CardShark.CardController do
 
     if changeset.valid? do
       card = Repo.insert!(changeset)
+      card |> Event.card_created |> Event.store
+
       CardShark.Endpoint.broadcast! "stream", "cardevent", %{event: "created", card: card}
       render(conn, "show.json", card: card)
     else

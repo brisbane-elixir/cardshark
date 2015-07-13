@@ -1,7 +1,9 @@
 defmodule CardShark.CardControllerTest do
   use CardShark.ConnCase
+  import TestHelper
 
   alias CardShark.Card
+
   @valid_attrs %{assignee: 42, detail: "some content", estimate: 42, summary: "some content"}
   @invalid_attrs %{}
 
@@ -37,6 +39,17 @@ defmodule CardShark.CardControllerTest do
     conn = post conn, card_path(conn, :create), card: @valid_attrs
     assert json_response(conn, 200)["id"]
     assert Repo.get_by(Card, @valid_attrs)
+  end
+
+  test "creates a card_created event when a card is created", %{conn: conn} do
+    conn = post conn, card_path(conn, :create), card: @valid_attrs
+    response = json_response(conn, 200)
+
+    expected_payload = @valid_attrs
+    |> Map.put(:id, response["id"])
+    |> Map.put(:project_id, response["project_id"])
+
+    assert latest_event("card_created").payload == expected_payload
   end
 
   test "does not create resource and renders errors when data is invalid", %{conn: conn} do
