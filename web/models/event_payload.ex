@@ -7,7 +7,7 @@ defmodule CardShark.EventPayload do
     def cast(%{} = payload), do: {:ok, payload}
     def cast(_other),        do: :error
 
-    def load(value), do: Poison.decode(value)
+    def load(value), do: Poison.decode(value, keys: :atoms!)
 
     def dump(value), do: Poison.encode(value)
   end
