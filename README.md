@@ -1,7 +1,8 @@
 # Card Shark
 [![Build Status](https://semaphoreci.com/api/v1/projects/d1338bad-4a9d-40f7-bced-2bebf6bf6088/483360/badge.svg)](https://semaphoreci.com/colinbankier/cardshark)
 
-[![Join the chat at https://gitter.im/markryall/card_shark](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/markryall/card_shark?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+[![Join the chat at https://gitter.im/brisbane-elixir/cardshark](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/brisbane-elixir/cardshark?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Run locally
 
