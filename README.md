@@ -24,6 +24,12 @@ Run database migrations
 mix ecto.migrate
 ```
 
+Install node dependencies
+
+```sh
+npm install
+```
+
 Start server in foreground
 
 ```sh
@@ -52,7 +58,7 @@ user = Repo.insert changeset
 
 changeset = User.changeset(user, %{:password => "2"})
 changeset.valid?
-user = Repo.update changeset
+user = Repo.update! changeset
 
 user = Repo.get User, 1
 Map.get user, :email
@@ -109,6 +115,10 @@ DATABASE_URL=postgres://$USER:$PASSWORD@$HOSTNAME:5432/$DATABASE
 Now you can visit `http//$NAME.herokuapp.com`.
 
 # API
+
+```
+export CARD_SHARK_URL=http://127.0.0.1:4000
+```
 
 ## Cards
 

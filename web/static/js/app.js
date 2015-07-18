@@ -20,3 +20,14 @@ chan.on("cardevent", data => {
   console.log(data);
   new Notification(data.event, {"body": JSON.stringify(data.card) });
 });
+
+var HelloWorld = React.createClass({
+  render() {
+    return (<h1>Hello World</h1>)
+  }
+})
+
+window.onload = () => {
+  var element = document.getElementById("content")
+  React.render(<HelloWorld />, element)
+}
