@@ -12,6 +12,11 @@ Install dependencies
 mix deps.get
 ```
 
+Set Database URL
+```sh
+export DATABASE_URL="postgres://$(whoami):@localhost/card_shark_dev"
+```
+
 Create database
 
 ```sh
