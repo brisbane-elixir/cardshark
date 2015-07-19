@@ -20,7 +20,10 @@ config :logger, :console,
   metadata: [:request_id]
 
 config :card_shark, CardShark.Repo,
-  extensions: [{CardShark.Extensions.Json, library: Poison}]
+  extensions: [{CardShark.Extensions.Json, library: Poison}],
+  username: System.get_env("DATABASE_POSTGRESQL_USERNAME"),
+  password: System.get_env("DATABASE_POSTGRESQL_PASSWORD")
+
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
