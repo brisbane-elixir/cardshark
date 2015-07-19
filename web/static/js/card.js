@@ -1,5 +1,7 @@
 module.exports = React.createClass({
   render: function() {
-    return(<p>{ this.props.card.summary }</p>)
+    return(<div className="card">
+			<p>{ this.props.card.summary }</p>
+    </div>);
   }
 });

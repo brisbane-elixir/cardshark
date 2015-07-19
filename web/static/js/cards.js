@@ -13,11 +13,10 @@ module.exports = React.createClass({
     var chan = socket.chan("stream", {});
     socket.connect();
     chan.join().receive("ok", (cards) => {
-      console.log(cards);
       this.setState({cards: cards});
     })
     chan.on("cardevent", data => {
-      console.log(data);
+      var cards = this.state.cards;
       new Notification(data.event, {"body": JSON.stringify(data.card) });
     });
   },
