@@ -28,5 +28,4 @@ config :logger, :console, format: "[$level] $message\n"
 
 # Configure your database
 config :card_shark, CardShark.Repo,
-  adapter: Ecto.Adapters.Postgres,
-  database: "card_shark_dev"
+  adapter: Ecto.Adapters.Postgres
