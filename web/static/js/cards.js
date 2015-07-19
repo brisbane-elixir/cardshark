@@ -1,3 +1,5 @@
+import Card from "./card"
+
 module.exports = React.createClass({
   getInitialState: function() {
     return {
@@ -21,10 +23,13 @@ module.exports = React.createClass({
   },
 
   render: function() {
+    var transform = function(card) {
+      return (<Card card={card} />);
+    }
     if (this.state.cards) {
-      return(<p>Loaded</p>)
+      return(<div>{ _.map(this.state.cards, transform) }</div>)
     } else {
       return (<p>Loading ... please wait</p>)
     }
   }
-})
+});

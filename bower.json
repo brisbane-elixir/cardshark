@@ -17,6 +17,7 @@
     "tests"
   ],
   "dependencies": {
-    "react": "~0.13.3"
+    "react": "~0.13.3",
+    "lodash": "~3.10.0"
   }
 }
