@@ -28,6 +28,7 @@ Install node dependencies
 
 ```sh
 npm install
+bower install
 ```
 
 Start server in foreground
@@ -140,7 +141,9 @@ curl $CARD_SHARK_URL/api/cards \
     "summary": "manage cards",
     "detail": "crud operations for managing cards",
     "estimate": "1",
-    "assignee": "1"
+    "assignee": "1",
+    "priority": "30.0",
+    "status": "todo"
   }
 }
 JSON

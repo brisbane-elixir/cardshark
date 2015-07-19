@@ -17,7 +17,8 @@ module.exports = React.createClass({
     })
     chan.on("cardevent", data => {
       var cards = this.state.cards;
-      new Notification(data.event, {"body": JSON.stringify(data.card) });
+      cards.push(data.card);
+      this.setState({cards: cards});
     });
   },
 
