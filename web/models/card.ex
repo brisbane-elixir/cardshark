@@ -6,13 +6,15 @@ defmodule CardShark.Card do
     field :detail, :string
     field :estimate, :integer
     field :assignee, :integer
+    field :priority, :float, default: 0.0
+    field :status, :string, default: "backlog"
     belongs_to :project, CardShark.Project
 
     timestamps
   end
 
-  @required_fields ~w(summary detail estimate assignee)
-  @optional_fields ~w()
+  @required_fields ~w(summary status priority)
+  @optional_fields ~w(assignee estimate detail)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
