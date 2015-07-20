@@ -1,13 +1,16 @@
 defmodule CardShark.CardController do
   use CardShark.Web, :controller
 
+  import Ecto.Query
+
   alias CardShark.Card
   alias CardShark.Event
 
   plug :scrub_params, "card" when action in [:create, :update]
 
   def index(conn, _params) do
-    cards = Repo.all(Card)
+    query = from c in Card, order_by: [desc: c.priority]
+    cards = Repo.all query
     render(conn, "index.json", cards: cards)
   end
 

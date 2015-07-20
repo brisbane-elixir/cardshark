@@ -24,6 +24,13 @@ Run database migrations
 mix ecto.migrate
 ```
 
+Install node dependencies
+
+```sh
+npm install
+bower install
+```
+
 Start server in foreground
 
 ```sh
@@ -52,7 +59,7 @@ user = Repo.insert changeset
 
 changeset = User.changeset(user, %{:password => "2"})
 changeset.valid?
-user = Repo.update changeset
+user = Repo.update! changeset
 
 user = Repo.get User, 1
 Map.get user, :email
@@ -110,6 +117,10 @@ Now you can visit `http//$NAME.herokuapp.com`.
 
 # API
 
+```
+export CARD_SHARK_URL=http://127.0.0.1:4000
+```
+
 ## Cards
 
 The cards model, controller, views were initially created with the following generator:
@@ -130,7 +141,9 @@ curl $CARD_SHARK_URL/api/cards \
     "summary": "manage cards",
     "detail": "crud operations for managing cards",
     "estimate": "1",
-    "assignee": "1"
+    "assignee": "1",
+    "priority": "30.0",
+    "status": "todo"
   }
 }
 JSON

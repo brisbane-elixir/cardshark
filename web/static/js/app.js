@@ -1,22 +1,8 @@
-import {Socket} from "phoenix"
+import Cards from "./cards"
 
 Notification.requestPermission();
 
-let socket = new Phoenix.Socket("/ws");
-let chan = socket.chan("stream", {});
-
-socket.connect();
-
-chan.join().receive("ok", ({messages}) => {
-  console.log(messages);
-})
-
-chan.on("userevent", data => {
-  console.log(data);
-  new Notification(data.event, {"body": JSON.stringify(data.user) });
-});
-
-chan.on("cardevent", data => {
-  console.log(data);
-  new Notification(data.event, {"body": JSON.stringify(data.card) });
-});
+window.onload = () => {
+  var element = document.getElementById("content")
+  React.render(<Cards />, element)
+}
