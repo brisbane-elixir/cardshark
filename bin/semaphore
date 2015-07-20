@@ -1,0 +1,10 @@
+#!/bin/bash
+set -x
+set -e
+
+mix local.hex --force
+mix deps.get --only test
+
+export DATABASE_URL="postgres://${DATABASE_POSTGRESQL_USERNAME}:${DATABASE_POSTGRESQL_PASSWORD}@localhost/card_shark_test"
+
+mix test

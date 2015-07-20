@@ -9,7 +9,9 @@ config :card_shark, CardShark.Endpoint,
 # Print only warnings and errors during test
 config :logger, level: :warn
 
-System.put_env "DATABASE_URL", "postgres://#{System.get_env("USER")}:@localhost/card_shark_test"
+if !System.get_env("DATABASE_URL") do
+  System.put_env "DATABASE_URL", "postgres://#{System.get_env("USER")}:@localhost/card_shark_test"
+end
 # Configure your database
 config :card_shark, CardShark.Repo,
   adapter: Ecto.Adapters.Postgres,

@@ -25,7 +25,9 @@ defmodule CardShark.CardControllerTest do
       "summary" => card.summary,
       "detail" => card.detail,
       "estimate" => card.estimate,
-      "assignee" => card.assignee
+      "assignee" => card.assignee,
+      "priority" => card.priority,
+      "status" => card.status
     }
   end
 
