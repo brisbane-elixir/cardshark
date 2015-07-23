@@ -5,6 +5,7 @@ defmodule CardShark.CardController do
 
   alias CardShark.Card
   alias CardShark.Event
+  alias CardShark.Commands
 
   plug :scrub_params, "card" when action in [:create, :update]
 
@@ -15,19 +16,19 @@ defmodule CardShark.CardController do
   end
 
   def create(conn, %{"card" => card_params}) do
-    changeset = Card.changeset(%Card{}, card_params)
+    %Commands.CreateCard{card_params: card_params}
+    |> CommandExecutor.execute
+    |> render_create_result(conn)
+  end
 
-    if changeset.valid? do
-      card = Repo.insert!(changeset)
-      card |> Event.card_created |> Event.store
+  def render_create_result({:ok, card}, conn) do
+    render(conn, "show.json", card: card)
+  end
 
-      CardShark.Endpoint.broadcast! "stream", "cardevent", %{event: "created", card: card}
-      render(conn, "show.json", card: card)
-    else
+  def render_create_result({:error, changeset}, conn) do
       conn
       |> put_status(:unprocessable_entity)
       |> render(CardShark.ChangesetView, "error.json", changeset: changeset)
-    end
   end
 
   def show(conn, %{"id" => id}) do

@@ -23,6 +23,12 @@ defmodule CardShark.Event do
     |> cast(params, @required_fields, @optional_fields)
   end
 
+  def init do
+    subscribe_to Commands.CardCreated, fn event ->
+      CardShark.Endpoint.broadcast! "stream", "cardevent", %{event: "created", card: event.payload}
+    end
+  end
+
   def card_created(card) do
       payload = card
       |> Map.take([:id, :summary, :detail, :estimate, :assignee, :project_id])
