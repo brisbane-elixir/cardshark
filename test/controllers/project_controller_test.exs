@@ -2,7 +2,10 @@ defmodule CardShark.ProjectControllerTest do
   use CardShark.ConnCase
 
   alias CardShark.Project
-  @valid_attrs %{name: "some content"}
+  @valid_attrs %{
+    name: "The Phoenix Project",
+    display_columns: ["To Do", "Doing", "Done"]
+  }
   @invalid_attrs %{}
 
   setup do
@@ -16,11 +19,12 @@ defmodule CardShark.ProjectControllerTest do
   end
 
   test "shows chosen resource", %{conn: conn} do
-    project = Repo.insert! %Project{}
+    project = Repo.insert! %Project{ name: "Big Project", display_columns: ["first", "second", "last"]}
     conn = get conn, project_path(conn, :show, project)
     assert json_response(conn, 200) == %{
       "id" => project.id,
-      "name" => project.name
+      "name" => project.name,
+      "display_columns" => project.display_columns
     }
   end
 

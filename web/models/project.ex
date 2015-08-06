@@ -3,6 +3,7 @@ defmodule CardShark.Project do
 
   schema "projects" do
     field :name, :string
+    field :display_columns, {:array, :string}
     has_many :cards, CardShark.Card
 
     timestamps
