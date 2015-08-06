@@ -34,6 +34,7 @@ defmodule CardShark.Mixfile do
      {:phoenix_html, "~> 1.1"},
      {:postgrex, ">= 0.0.0"},
      {:poison, "~> 1.4.0"},
+     {:white_bread, github: "meadsteve/white-bread", tag: "v1.0.1"},
      {:phoenix_live_reload, "~> 0.4.3", only: :dev},
      {:cowboy, "~> 1.0"}]
   end
