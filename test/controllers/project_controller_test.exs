@@ -19,7 +19,7 @@ defmodule CardShark.ProjectControllerTest do
   end
 
   test "shows chosen resource", %{conn: conn} do
-    project = Repo.insert! %Project{ name: "Big Project", display_columns: ["first", "second", "last"]}
+    project = Repo.insert! struct(Project, @valid_attrs)
     conn = get conn, project_path(conn, :show, project)
     assert json_response(conn, 200) == %{
       "id" => project.id,

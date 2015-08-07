@@ -26,6 +26,10 @@ config :card_shark, CardShark.Endpoint,
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 
+if !System.get_env("DATABASE_URL") do
+  System.put_env "DATABASE_URL", "postgres://#{System.get_env("USER")}:@localhost/card_shark_dev"
+end
+
 # Configure your database
 config :card_shark, CardShark.Repo,
   adapter: Ecto.Adapters.Postgres

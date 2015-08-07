@@ -10,7 +10,7 @@ defmodule CardShark.Project do
   end
 
   @required_fields ~w(name)
-  @optional_fields ~w()
+  @optional_fields ~w(display_columns)
 
   @doc """
   Creates a changeset based on the `model` and `params`.

@@ -10,6 +10,7 @@ defmodule CardShark.ProjectView do
   end
 
   def render("project.json", %{project: project}) do
-    %{id: project.id, name: project.name}
+    project
+    |> Map.take([:id, :name, :display_columns])
   end
 end
