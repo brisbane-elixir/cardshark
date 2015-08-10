@@ -2,7 +2,7 @@ defmodule CardShark.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  channel "stream", CardShark.RoomChannel
+  channel "stream", CardShark.StreamChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket

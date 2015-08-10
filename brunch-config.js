@@ -20,6 +20,12 @@ exports.config = {
     }
   },
 
+  modules: {
+    autoRequire: {
+      'js/app.js': ['web/static/js/app']
+    }
+  },
+
   // Phoenix paths configuration
   paths: {
     // Which directories to watch

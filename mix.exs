@@ -34,7 +34,7 @@ defmodule CardShark.Mixfile do
      {:phoenix_html, "~> 2.0"},
      {:postgrex, ">= 0.0.0"},
      {:poison, "~> 1.4.0"},
-     {:phoenix_live_reload, "~> 0.5", only: :dev},
+     {:phoenix_live_reload, "~> 0.6", only: :dev},
      {:cowboy, "~> 1.0"}]
   end
 end

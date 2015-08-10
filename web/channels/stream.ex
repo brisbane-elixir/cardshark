@@ -6,6 +6,6 @@ defmodule CardShark.StreamChannel do
   def join(topic, message, socket) do
     query = from c in CardShark.Card, order_by: [desc: c.priority]
     cards = CardShark.Repo.all query
-    {:ok, cards, socket}
+    {:ok, socket}
   end
 end

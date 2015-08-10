@@ -1,3 +1,4 @@
+import {Socket} from "deps/phoenix/web/static/js/phoenix"
 import Card from "./card"
 
 module.exports = React.createClass({
@@ -9,11 +10,12 @@ module.exports = React.createClass({
 
   componentWillMount: function() {
     var component = this;
-    var socket = new Phoenix.Socket("/ws");
-    var chan = socket.chan("stream", {});
-    socket.connect();
+    var socket = new Socket("/ws");
+    var chan = socket.channel("stream");
+    socket.connect({});
     chan.join().receive("ok", (cards) => {
-      this.setState({cards: cards});
+      console.log('cards', cards);
+      //this.setState({cards: cards});
     })
     chan.on("cardevent", data => {
       var cards = this.state.cards;
