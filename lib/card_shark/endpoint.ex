@@ -1,6 +1,8 @@
 defmodule CardShark.Endpoint do
   use Phoenix.Endpoint, otp_app: :card_shark
 
+  socket "/ws", CardShark.UserSocket
+
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phoenix.digest
@@ -31,5 +33,5 @@ defmodule CardShark.Endpoint do
     key: "_card_shark_key",
     signing_salt: "tjGKW6NF"
 
-  plug :router, CardShark.Router
+  plug CardShark.Router
 end
