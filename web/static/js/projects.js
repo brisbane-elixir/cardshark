@@ -24,7 +24,7 @@ module.exports = React.createClass({
 
   render: function() {
     var transform = function(project) {
-      return (<Project project={project} />);
+      return (<Project key={project.id} project={project} />);
     }
     if (this.state.projects) {
       return(<div>{ _.map(this.state.projects, transform) }</div>)
