@@ -11,7 +11,7 @@ config :card_shark, CardShark.Endpoint,
   debug_errors: true,
   code_reloader: true,
   cache_static_lookup: false,
-  watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin"]]
+  watchers: [node: ["node_modules/webpack/bin/webpack.js", "--watch", "--colors", "--progress"]]
 
 # Watch static and templates for browser reloading.
 config :card_shark, CardShark.Endpoint,
@@ -26,6 +26,10 @@ config :card_shark, CardShark.Endpoint,
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 
+if !System.get_env("DATABASE_URL") do
+  System.put_env "DATABASE_URL", "postgres://#{System.get_env("USER")}:@localhost/card_shark_dev"
+end
 # Configure your database
 config :card_shark, CardShark.Repo,
-  adapter: Ecto.Adapters.Postgres
+  adapter: Ecto.Adapters.Postgres,
+  pool: Ecto.Adapters.SQL.Sandbox

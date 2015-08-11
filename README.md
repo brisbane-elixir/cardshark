@@ -55,20 +55,64 @@ You can execute database actions:
 ```elixir
 alias CardShark.Repo
 alias CardShark.User
+alias CardShark.Card
+alias CardShark.Project
+
+import Ecto.Query
+import Ecto.Model
 
 users = Repo.all User
 
 changeset = User.changeset(%User{}, %{:email => "me@mail.com", :password => "1"})
 changeset.valid?
-user = Repo.insert changeset
+{:ok,user} = Repo.insert changeset
 
 changeset = User.changeset(user, %{:password => "2"})
 changeset.valid?
 user = Repo.update! changeset
 
 user = Repo.get User, 1
-Map.get user, :email
-Map.get user, :inserted_at
+user.email
+user.inserted_at
+
+changeset = Project.changeset(%Project{}, %{name: "card shark"})
+{:ok,project} = Repo.insert changeset
+
+changeset = Card.changeset(
+  %Card{project_id: project.id},
+  %{
+    summary: "create association",
+    detail: "cards should be linked to project",
+    estimate: 3,
+    assignee: 1
+  }
+)
+changeset.valid?
+{:ok, card} = Repo.insert changeset
+
+card = Repo.get Card, card.id
+changeset = Card.changeset(
+  card,
+  %{
+    summary: "really create association"
+  }
+)
+changeset.valid?
+card = Repo.update changeset
+
+[project|_] = Repo.all Project
+
+query = from c in Card,
+      where: c.id == ^card.id,
+     select: c,
+    preload: :project
+[card] = Repo.all query
+
+card = Repo.get Card, card.id
+query = assoc(card, :project)
+[project] = Repo.all query
+query = assoc(project, :cards)
+cards = Repo.all query
 
 CardShark.Endpoint.broadcast! "stream", "userevent", %{
   event: "created",

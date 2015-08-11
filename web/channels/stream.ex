@@ -4,8 +4,8 @@ defmodule CardShark.StreamChannel do
   require Logger
 
   def join(topic, message, socket) do
-    query = from c in CardShark.Card, order_by: [desc: c.priority]
-    cards = CardShark.Repo.all query
-    {:ok, socket}
+    projects = CardShark.Repo.all CardShark.Project
+    p = CardShark.ProjectView.render "index.json", projects: projects
+    {:ok, p, socket}
   end
 end
