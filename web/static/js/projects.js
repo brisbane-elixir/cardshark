@@ -1,5 +1,5 @@
 import React from "react"
-import {Socket} from "../../../deps/phoenix/web/static/js/phoenix"
+import events from "./events"
 import Project from "./project"
 import _ from "lodash"
 
@@ -12,15 +12,12 @@ module.exports = React.createClass({
 
   componentWillMount: function() {
     var component = this;
-    var socket = new Socket("/ws");
-    var chan = socket.channel("stream");
-    socket.connect({});
-    chan.join().receive("ok", (data) => {
-      this.setState({projects: data.projects});
+    events.on("projects", (projects) => {
+      this.setState({projects: projects});
     })
-    chan.on("projectevent", data => {
+    events.on("projectevent", project => {
       var projects = this.state.projects;
-      projects.push(data.project);
+      projects.push(project);
       this.setState({projects: projects});
     });
   },
