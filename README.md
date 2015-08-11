@@ -170,13 +170,24 @@ Now you can visit `http//$NAME.herokuapp.com`.
 export CARD_SHARK_URL=http://127.0.0.1:4000
 ```
 
-## Cards
+## Projects
 
-The cards model, controller, views were initially created with the following generator:
+### Create project
 
 ```sh
-mix phoenix.gen.json Card cards summary:string detail:text estimate:integer assignee:integer
+curl $CARD_SHARK_URL/api/projects \
+  -H 'Content-Type: application/json' \
+  -X POST \
+  -d @/dev/stdin <<JSON
+{
+  "project": {
+    "name": "world domination"
+  }
+}
+JSON
 ```
+
+## Cards
 
 ### Create card
 

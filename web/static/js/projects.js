@@ -16,13 +16,12 @@ module.exports = React.createClass({
     var chan = socket.channel("stream");
     socket.connect({});
     chan.join().receive("ok", (data) => {
-      console.log(data);
       this.setState({projects: data.projects});
     })
-    chan.on("cardevent", data => {
-      var cards = this.state.cards;
-      cards.push(data.card);
-      this.setState({cards: cards});
+    chan.on("projectevent", data => {
+      var projects = this.state.projects;
+      projects.push(data.project);
+      this.setState({projects: projects});
     });
   },
 
