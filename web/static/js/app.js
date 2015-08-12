@@ -1,8 +1,5 @@
-import Cards from "./cards"
+import React from "react"
+import Projects from "./projects"
+import events from "./events"
 
-Notification.requestPermission();
-
-window.onload = () => {
-  var element = document.getElementById("content")
-  React.render(<Cards />, element)
-}
+React.render(<Projects />, document.getElementById("content"))

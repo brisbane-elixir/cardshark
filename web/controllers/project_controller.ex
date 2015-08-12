@@ -15,6 +15,9 @@ defmodule CardShark.ProjectController do
 
     if changeset.valid? do
       project = Repo.insert!(changeset)
+      CardShark.Endpoint.broadcast! "stream",
+        "projectevent",
+        %{event: "created", project: CardShark.ProjectView.render("show.json", project: project)}
       render(conn, "show.json", project: project)
     else
       conn

@@ -6,6 +6,7 @@ defmodule CardShark.Router do
     plug :fetch_session
     plug :fetch_flash
     plug :protect_from_forgery
+    plug :put_secure_browser_headers
   end
 
   pipeline :api do
@@ -22,9 +23,5 @@ defmodule CardShark.Router do
     resources "/users", UserController
     resources "/cards", CardController
     resources "/projects", ProjectController
-  end
-
-  socket "/ws", CardShark do
-    channel "stream", StreamChannel
   end
 end
