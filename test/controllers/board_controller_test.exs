@@ -2,6 +2,8 @@ defmodule CardShark.BoardControllerTest do
   use CardShark.ConnCase
 
   alias CardShark.Board
+  alias CardShark.Column
+
   @valid_attrs %{
     columns: [%{name: "To Do"}, %{name: "Doing"}, %{name: "Done"}],
     name: "The Phoenix Project",
@@ -38,9 +40,19 @@ defmodule CardShark.BoardControllerTest do
     assert json_response(conn, 201)["data"]["id"]
 
     board = Repo.get_by(Board, @valid_attrs |> Map.delete(:columns))
-    |> Map.take(Map.keys(@valid_attrs))
+    fields = [:name, :columns, :project_id]
 
-    assert board == @valid_attrs
+    expected = %Board{
+      name: "The Phoenix Project",
+      columns: [
+        %Column{name: "To Do"},
+        %Column{name: "Doing"},
+        %Column{name: "Done"}
+      ],
+      project_id: 42
+    }
+
+    assert Map.take(board, fields) == Map.take(expected, fields)
   end
 
   test "does not create resource and renders errors when data is invalid", %{conn: conn} do

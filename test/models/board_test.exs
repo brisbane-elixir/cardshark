@@ -3,7 +3,11 @@ defmodule CardShark.BoardTest do
 
   alias CardShark.Board
 
-  @valid_attrs %{columns: ["To do", "Doing", "Done"], name: "My Board", project_id: 42}
+  @valid_attrs %{
+    columns: [%{name: "To Do"}, %{name: "Doing"}, %{name: "Done"}],
+    name: "The Phoenix Project",
+    project_id: 42
+  }
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
