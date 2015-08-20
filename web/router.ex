@@ -23,5 +23,6 @@ defmodule CardShark.Router do
     resources "/users", UserController
     resources "/cards", CardController
     resources "/projects", ProjectController
+    resources "/boards", BoardController
   end
 end
